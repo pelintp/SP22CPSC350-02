@@ -1,0 +1,2 @@
+/Users/pelin/Documents/CPSC350/Assignment1/prices/prices.cpp
+/Users/pelin/Documents/CPSC350/Assignment1/age/age.cpp
