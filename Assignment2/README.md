@@ -1,3 +1,0 @@
-# CPSC350_SP22_ASSIGNMENT2_TOP
-## Pelin Nisa Top
-###Student ID:2391194
