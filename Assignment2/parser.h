@@ -1,4 +1,3 @@
-#ifndef PARSER_H
 #define PARSER_H
 #include <iostream>
 #include <fstream>
@@ -18,4 +17,3 @@ public:
    void pairs(ofstream& fout);
    void outputToFile(string file);   // shows the output.txt
 };
-#endif
