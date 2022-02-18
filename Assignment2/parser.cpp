@@ -159,6 +159,5 @@ void Parser::outputToFile(string file)
    outFile.open(file);
 
    all_functions(outFile);  //display all_functions parts.
-   //pairs(outFile); //displays pairs. 
    outFile.close(); 
 }
