@@ -58,7 +58,6 @@ string Translator::translateEnglishSentence(string sent){
        
         
     }
-    //After the for-loop ends this will translate whatever is left inside the temp string
     result += translateEnglishWord(word);
     return result;
 }

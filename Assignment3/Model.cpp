@@ -147,25 +147,6 @@ string Model::translateSingleCharacter(char c){ // code that translates each let
 
 }
 
-
-string Model::translateDoubleCharacter(char c){  //code that describes scenario for letter pairs
-    //checks if it upper
-    if(c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U') 
-        {return "Squat" + tolower(c);} //calls the last method tolower for capitalization --output
-    
-    //checks if it lower
-    //tutnese convert
-    else if(c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u' ) 
-        {string l = "";
-        l += c; 
-        return "squat" + l;} 
-    
-    else{
-        return "squa" + translateSingleCharacter(c); //for the constant
-    }
-}
-
-
 //turns into lower
 string Model::tolower(char l){
     if(l == 'A'){
@@ -274,3 +255,22 @@ string Model::tolower(char l){
 return 0;
 
 }
+
+
+string Model::translateDoubleCharacter(char c){  //code that describes scenario for letter pairs
+    //checks if it upper
+    if(c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U') 
+        {return "Squat" + tolower(c);} //calls the last method tolower for capitalization --output
+    
+    //checks if it lower
+    //tutnese convert
+    else if(c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u' ) 
+        {string l = "";
+        l += c; 
+        return "squat" + l;} 
+    
+    else{
+        return "squa" + translateSingleCharacter(c); //for the constant
+    }
+}
+
