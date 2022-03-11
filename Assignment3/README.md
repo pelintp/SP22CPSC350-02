@@ -2,8 +2,8 @@
 ##Pelin Nisa Top
 ###CPSC-350-02
 
-reference:
+#reference:
 #https://www.cplusplus.com/doc/tutorial/files/
-https://www.cplusplus.com/reference/cctype/tolower/
+#https://www.cplusplus.com/reference/cctype/tolower/
 
 
