@@ -101,20 +101,17 @@ void List<T>::clear()
 
 
 template <typename T>
-bool List<T>::isEmpty() {
-	//constatnt
+bool List<T>::isEmpty() { //constatnt
 	return isize == 0;
 }
 
 template <typename T>
-//constant
-int List<T>::size() {
+int List<T>::size() { //constant
 	return isize;
 }
 
 template <typename T>
-//remove from front of queue
-bool List<T>::removeBack() {
+bool List<T>::removeBack() { //remove from front of queue
 	//check if empty
 	if (isEmpty()) {
 		//if the back is empty then return
@@ -145,7 +142,8 @@ bool List<T>::removeBack() {
 }
 
 template <typename T>
-bool List<T>::removeFront() { //remove from front of queue
+bool List<T>::removeFront() {
+	//remove from front of queue
 	//check if empty
 	if (isEmpty()) {
 		//if the front is empty then return
@@ -174,8 +172,8 @@ bool List<T>::removeFront() { //remove from front of queue
 }
 
 template <typename T>
-//insert at the back of queue
 void List<T>::insertFront(const T& item) {
+	//insert at the back of queue
 	//create new node
 	ListNode<T>* newNode = new ListNode<T>(item, front);
 
@@ -189,8 +187,7 @@ void List<T>::insertFront(const T& item) {
 }
 
 template <typename T>
-//insert at the back of queue
-void List<T>::insertBack(const T& item) {
+void List<T>::insertBack(const T& item) { //insert at the back of queue
 	//create new node
 	ListNode<T>* newNode = new ListNode<T>(item, nullptr, back);
 
@@ -233,10 +230,10 @@ template <typename T> bool List<T>::find(T data) {
 			current = current->next;
 		}
 	}
-	//if current is not equal return find
 
 	return false;
 }
+
 
 
 
@@ -267,9 +264,8 @@ template <typename T> bool List<T>::remove(T data) {
 		delete current;
 		return true;
 	}
-	// if (current != NULL) {
-	// 	return find;
-	// }
+	// if current not equal  NULL
+	// 	return find
 	return false;
 }
 

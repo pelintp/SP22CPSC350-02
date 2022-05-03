@@ -89,6 +89,7 @@ void Faculty::getAdvisees(string adv) {
     tosave = "";
 
 }
+// string Faculty printAdvisees
 
 // overloaded operators
 bool Faculty::operator!=(Faculty faculty)

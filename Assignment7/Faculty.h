@@ -14,7 +14,8 @@ using namespace std;
 class Faculty {
     public:
         Faculty();
-        Faculty(int ID, string n, string l, string dept); // overloaded constructor
+        Faculty(int ID, string n, string l, string dept);
+        // overloaded constructor
         ~Faculty();
 
         void setName(string n);
@@ -29,10 +30,13 @@ class Faculty {
         void setDept(string d);
         string getDept();
 
-        List<int> *advisees = new List<int>(); // for advisees
+        // for advisees
+        List<int> *advisees = new List<int>();
+        // for advisees
         void addAdvisee(int studentID);
         bool removeAdvisee(int studentId);
         void getAdvisees(string adv);
+        // string printAdvisees
 
         // overloaded constructors
         // overloaded operators here

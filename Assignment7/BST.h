@@ -39,7 +39,7 @@ template <typename E> TreeNode<E>::~TreeNode(){
 }
 
 
-// BST 
+// BST
 
 template <typename E> class BST{
     private:

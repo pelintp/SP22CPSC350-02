@@ -20,7 +20,7 @@ class Student{
         bool operator>=(Student student);
 
 
-        // gets and sets
+        // GETS AND SETS
         void setName(string NAME);
         string getName();
 
