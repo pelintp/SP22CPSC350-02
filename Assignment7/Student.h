@@ -9,7 +9,7 @@ using namespace std;
 class Student{
     public:
         Student();
-        Student(int ID, string name, string level, string major, double GPA, int advisor); // overloaded constructor
+        Student(int ID, string NAME, string lvl, string mjr, double GPA, int advisor); // overloaded constructor
         ~Student();
 
         // overloaded operators here
@@ -20,26 +20,26 @@ class Student{
         bool operator>=(Student student);
 
 
-        // getters and setters
-        void setName(string name);
+        // gets and sets
+        void setName(string NAME);
         string getName();
 
         void setID(int ID);
         int getId();
 
-        void setLevel(string level);
+        void setLevel(string lvl);
         string getLevel();
 
-        void setMajor(string major);
+        void setMajor(string mjr);
         string getMajor();
 
-        void setGPA(double gpa);
+        void setGPA(double GPA);
         double getGPA();
 
         void setAdvisor(int advisorID);
         int getAdvisor();
 
-        
+
 
     private:
         int stID;

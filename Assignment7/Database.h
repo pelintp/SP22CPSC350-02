@@ -40,8 +40,8 @@ class Database{
         void startProgram();
         void saveInfoFaculty();
         void saveInfoStudents();
-        // string writeFaculty(TreeNode<Faculty> *node);
-        // string writeStudents(TreeNode<Student> *node);
+        string facultyToPrint(TreeNode<Faculty> *node);
+        string studentToPrint(TreeNode<Student> *node);
 
     private:
         BST<Faculty> facultyTree;   

@@ -14,32 +14,35 @@ Database::~Database(){
 
 
 void Database::printStudents(){
-    //studentTree.inOrder(true, studentTree.getRoot());
     studentTree.studentInOrder(studentTree.getRoot());
 }
 
 void Database::printFaculty(){
-    // facultyTree.inOrder(true, facultyTree.getRoot());
     facultyTree.facultyInOrder(facultyTree.getRoot());
-
 }
 
 void Database::displayStudentInfo(int id){
-    // 
 }
 
 void Database::displayFacultyInfo(int id){
-    //
 }
 
 void Database::addNewStudent(int id, string name, string level, string major, double gpa, int advisor){
     Student student(id, name, level, major, gpa, advisor);
+    student.setName(name);
+
+    //PRINT  TEST
+    //PRINT student.getName()
+    //PRINT name
 
     studentTree.insert(student);
 }
 
 void Database::addNewFaculty(int id, string name, string level, string department){
     Faculty faculty(id, name, level, department);
+    faculty.setName(name);
+    faculty.setDept(department);
+    faculty.setLevel(level);
 
     facultyTree.insert(faculty);
 }
@@ -52,48 +55,68 @@ void Database::deleteFaculty(int id) {
 }
 
 void Database::startProgram() {
-    // Student student;
-    // Faculty faculty;
+    // student
+    // faculty
     string line;
     string l1;
     ifstream file("facultyTable.txt");
     if (!file.is_open()) {
         cout << "Could not open file" << endl;
-        //exit();
-    } 
+        //exit
+
+    }
     else {
+            cout << "inside" << endl;
+
         while(getline(file, line)) {
             Faculty faculty;
-            faculty.setID(stoi(line));
-            getline(file, line);
             faculty.setName(line);
             getline(file, line);
+            faculty.setID(stoi(line));
+            getline(file, line);
+
             faculty.setLevel(line);
             getline(file, line);
             faculty.setDept(line);
+            getline(file, line);
             facultyTree.insert(faculty);
+            TreeNode<Faculty> *current = facultyTree.getRoot();
+
+            // finding faculty member in tree to load advisees
+            while(current->key.getId() != faculty.getId()){
+                if(faculty.getId() >= current->key.getId()){
+
+                    current = current->right;
+                }else{
+                    current = current->left;
+                }
+            }
+            current->key.getAdvisees(line);
+
+            l1 = "";
         }
     }
     file.close();
-
+    cout << "pt 1" << endl;
     ifstream stFile("studentTable.txt");
-    
+
     if (!stFile.is_open())
     {
-        cout << "Could not open file" << endl;
+        //PRINT Could not open file
     }
     else {
         while(getline(stFile, line)) {
             Student student;
-            student.setID(stoi(line));
-            getline(stFile, line);
+
             student.setName(line);
+            getline(stFile, line);
+            student.setID(stoi(line));
             getline(stFile, line);
             student.setLevel(line);
             getline(stFile, line);
             student.setMajor(line);
             getline(stFile, line);
-            student.setGPA(stoi(line));
+            student.setGPA(stod(line)); // to get double value
             getline(stFile, line);
             student.setAdvisor(stoi(line));
 
@@ -101,15 +124,20 @@ void Database::startProgram() {
         }
     }
     file.close();
+        cout << "pt 2" << endl;
+
 }
 
 void Database::Simulation() {
     bool exit = false;
     string input;
-    
+    cout << "pt 3" << endl;
 
+    startProgram();
+        cout << "pt 4" << endl;
 
-    do {
+    do
+    {
         cout << "Welcome to the student and faculty databases. Please select a number: \n" << endl;
         cout << "1. Print all students and their info by ascending ID" << endl;
         cout << "2. Print all faculty and their info by ascending ID" << endl;
@@ -141,7 +169,7 @@ void Database::Simulation() {
             //displayStudentInfo(stID);
 
             Student student;
-            student.setID(stID); 
+            student.setID(stID);
             studentTree.printStudentInfo(student);
         }
         else if (input == "4"){
@@ -157,19 +185,33 @@ void Database::Simulation() {
             facultyTree.printFacultyInfo(faculty);
         }
         else if (input == "5"){
-            // int stID;
-            // cout << "Enter student ID" << endl;
-            // cin >> stID;
-            // cout << "Looking up advisor..." << endl;
-            // cout << "Advisor for " << stID << endl;
-            // displayAdvisor(stID);
+            int stID;
+
+            bool exists = false;
+            // checking if id exists
+            while (!exists)
+            {
+                cout << "Enter a valid ID for new student" << endl;
+                cin >> stID;
+
+                Student st;
+                st.setID(stID);
+
+                if(!studentTree.containsID(st.getId())){
+                    cout << "Invalid ID. Try Again." << endl;
+
+                }else{
+                    exists = true;
+                }
+            }
+
+            cout << "Advisor for " << stID << endl;
+            displayAdvisor(stID);
         }
         else if (input == "6"){
             // int facultyID;
 
-            // cout << "Enter faculty ID" << endl;
-            // cin >> facultyID;
-            // displayFacultyAdvisees(facultyID);
+            // PRINT ENTER FACULTY ID
         }
         else if (input == "7"){
             int newStID;
@@ -191,7 +233,7 @@ void Database::Simulation() {
 
                 if(studentTree.containsID(st.getId())){
                     cout << "Invalid ID. Try Again." << endl;
-                    
+
                 }else{
                     isUnique = true;
                 }
@@ -210,12 +252,13 @@ void Database::Simulation() {
             cout << "Enter advisor for new student" << endl;
             cin >> advisor;
 
-            string name = firstName + " " + secondName;
+            string name = firstName +" " + secondName;
+            // cout << name << " TEST" << endl;
             addNewStudent(newStID, name, level, major, gpa, advisor);
         }
         else if (input == "8"){
             int stID;
-            
+
 
             bool contains = false;
             while (!contains)
@@ -228,13 +271,13 @@ void Database::Simulation() {
 
                 if(facultyTree.containsID(student.getId())){
                     cout << "Member does not exist. Try Again" << endl;
-                    
+
                 }else{
                     contains = true;
                 }
             }
             deleteStudent(stID);
-            
+
         }
         else if (input == "9"){
             int newfacultyID;
@@ -254,7 +297,7 @@ void Database::Simulation() {
 
                 if(facultyTree.containsID(faculty.getId())){
                     cout << "Invalid ID. Try Again" << endl;
-                    
+
                 }else{
                     isUnique = true;
                 }
@@ -268,7 +311,7 @@ void Database::Simulation() {
             cin >> level;
             cout << "Enter department for new faculty" << endl;
             cin >> department;
-            
+
 
             string name = firstName + " " + secondName;
             addNewFaculty(newfacultyID, name, level, department);
@@ -284,44 +327,109 @@ void Database::Simulation() {
                 Faculty faculty;
                 faculty.setID(facultyID);
 
-                // cout << "fac id: " << faculty.getId() << endl;
+                // print fac id
 
                 if(!facultyTree.containsID(faculty.getId())){
                     cout << "Member does not exist. Try Again" << endl;
-                    
+
                 }else{
                     contains = true;
                 }
             }
-            
+
             deleteFaculty(facultyID);
         }
         else if (input == "11"){
-            // int STUDENTid;
-            // int facultyID;
+            int STUDENTid;
+            int facultyID;
+            bool idExists = false;
 
-            // cout << "Enter student id: ";
-            // cin >> STUDENTid;
-            // cout << "Enter faculty id: ";
-            // cin >> facultyID;
-            // changeAdvisor(STUDENTid, facultyID);
+            while(!idExists) {
+                cout << "Enter student id: ";
+                cin >> STUDENTid;
+
+                Student st;
+                st.setID(STUDENTid);
+
+
+
+                if(!studentTree.containsID(st.getId())){
+                    cout << "Invalid ID. Try Again." << endl;
+
+                }else{
+                    idExists = true;
+                }
+            }
+
+            idExists = false;
+            while (!idExists)
+            {
+                cout << "Enter faculty id: ";
+                cin >> facultyID;
+
+                Faculty f;
+                f.setID(facultyID);
+
+
+
+                if(!facultyTree.containsID(f.getId())){
+                    cout << "Invalid ID. Try Again." << endl;
+
+                }else{
+                    idExists = true;
+                }
+            }
+            changeAdvisor(STUDENTid, facultyID);
         }
         else if (input == "12"){
-        //     int STUDENTid;
-        //     int facultyID;
+            int STUDENTid;
+            int facultyID;
+            bool idExists = false;
 
-        //     cout << "Enter student id: ";
-        //     cin >> STUDENTid;
-        //     cout << "Enter faculty id: ";
-        //     cin >> facultyID;
-        //     removeAdvisee(STUDENTid, facultyID);
+            while(!idExists) {
+                cout << "Enter student id: ";
+                cin >> STUDENTid;
+
+                Student st;
+                st.setID(STUDENTid);
+
+
+
+                if(!studentTree.containsID(st.getId())){
+                    cout << "Invalid ID. Try Again." << endl;
+
+                }else{
+                    idExists = true;
+                }
+            }
+
+            idExists = false;
+            while (!idExists)
+            {
+                cout << "Enter faculty id: ";
+                cin >> facultyID;
+
+                Faculty f;
+                f.setID(facultyID);
+
+
+
+                if(!facultyTree.containsID(f.getId())){
+                    cout << "Invalid ID. Try Again." << endl;
+
+                }else{
+                    idExists = true;
+                }
+            }
+
+            removeAdvisee(facultyID, STUDENTid);
         }
         else if (input == "13"){
             // rollback();
         }
         else if (input == "14"){
-            // saveInfoFaculty();
-            // saveInfoStudents();
+            saveInfoFaculty();
+            saveInfoStudents();
             cout << "Goodbye." << endl;
             exit = true;
         }
@@ -335,37 +443,145 @@ void Database::Simulation() {
 void Database::saveInfoFaculty(){
     ofstream writeFaculty;
     writeFaculty.open("facultyTable.txt");
-    
 
+    string toPrint = "";
+
+    TreeNode<Faculty> *node = facultyTree.getRoot(); // get root to print all nodes later
+    writeFaculty << facultyToPrint(node);
+
+    writeFaculty.close();
+}
+
+string Database::facultyToPrint(TreeNode<Faculty> *node){
+    string toreturn = "";
+    string secondreturn = "";
+    string facInfo = "";
+    if (node != NULL)
+    {
+        // studentInfo = node->key.getName
+        // toreturn += node->key
+
+        // gets all the info from the node to then add to file
+        facInfo = node->key.getName() + "\n" + to_string(node->key.getId()) + "\n" + node->key.getLevel() + "\n" + node->key.getDept() + "\n";
+
+        toreturn += facInfo;
+
+        // traversing other nodes
+        toreturn += facultyToPrint(node->left);
+        toreturn += facultyToPrint(node->right);
+
+        return toreturn;
+    }
+    else {
+        return "";
+    }
+}
+
+string Database::studentToPrint(TreeNode<Student> *node){
+    string toreturn = "";
+    string secondreturn = "";
+    string studentInfo = "";
+    if (node != NULL)
+    {
+        // gets all the info from the node to then add to file
+        studentInfo = node->key.getName() + "\n" + to_string(node->key.getId()) + "\n" + node->key.getLevel() + "\n" + node->key.getMajor() + "\n" + to_string(node->key.getGPA()) + "\n" + to_string(node->key.getAdvisor());
+
+        toreturn += studentInfo;
+
+        // traversing other nodes
+        toreturn += studentToPrint(node->left);
+        toreturn += studentToPrint(node->right);
+
+        return toreturn;
+    }
+    else {
+        return "";
+    }
+}
+
+void Database::saveInfoStudents(){
+    ofstream writeStudents;
+    writeStudents.open("studentTable.txt");
+
+    string toPrint = "";
+
+    TreeNode<Student> *node = studentTree.getRoot(); // get root to print all nodes later
+    writeStudents << studentToPrint(node);
+
+    writeStudents.close();
+}
+
+void Database::removeAdvisee(int facID, int stID){
+
+    TreeNode<Faculty> *faculty = facultyTree.getRoot();
+    while (faculty->key.getId() != facID) {
+        if (facID >= faculty->key.getId()){
+            faculty = faculty->right;
+        }
+        else{
+            faculty = faculty->left;
+        }
+    }
+    // remove advisee
+    if (faculty->key.removeAdvisee(facID)) {
+        cout << "Successfully removed avisee" << endl;
+    }
+    else {
+        cout << "Could not remove, not contained in tree." << endl;
+    }
 
 }
 
-// string Database::writeFaculty(TreeNode<Faculty> *node){
-//     string toreturn = "";
-//     string secondreturn = "";
-//     string studentInfo = ""
-//     if (node != NULL)
-//     {
-//         // studentInfo = node->key.getName
-//         // toreturn += node->key
-//     }
-//     else {
-//         return "";
-//     }
-// }
+void Database::changeAdvisor(int stID, int newFacID) {
+    TreeNode<Student> *current = studentTree.getRoot(); // start from top
+    while(current->key.getId() != stID) {
+        if (stID >= current->key.getId()){
+            current = current->right;
+        }
+        else {
+            current = current->left;
+        }
+    }
+    // have the student
+    current->key.setAdvisor(newFacID); // updating
+    // updating faculty tree
+    TreeNode<Faculty> *faculty = facultyTree.getRoot();
+    while (faculty->key.getId() != newFacID) {
+        if (newFacID >= faculty->key.getId()){
+            faculty = faculty->right;
+        }
+        else{
+            faculty = faculty->left;
+        }
+    }
+    faculty->key.addAdvisee(stID);
+    cout << "Successfully added advisee." << endl;
+}
 
-// string Database::writeStudents(TreeNode<Student> *node){
-//     string toreturn = "";
-//     bool isEmpty = false;
-//     if (node != NULL)
-//     {
-//         return "";
-//     }
-//     else {
-//         return "";
-//     }
-// }
+void Database::displayAdvisor(int stID){
 
-void Database::saveInfoStudents(){
-    // ofstream writeStudents();
+    int id;
+    TreeNode<Student> *current = studentTree.getRoot(); // start at top to search
+    while(current->key.getId() != stID) {
+        if (stID >= current->key.getId()) {
+            current = current->right;
+        }
+        else {
+            current = current->left;
+        }
+    }
+
+    id = current->key.getAdvisor();
+    if (id == -1) {
+        cout << "No advisor for student with id: " << stID << endl;
+    }
+    else {
+        Faculty f;
+        f.setID(id);
+        facultyTree.printFacultyInfo(f);
+    }
+}
+
+void Database::displayFacultyAdvisees(int facID) {
+
 }

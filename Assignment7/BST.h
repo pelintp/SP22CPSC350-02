@@ -1,7 +1,6 @@
 #ifndef BST_H
 #define BST_H
 #include <string>
-
 #include <stddef.h>
 #include <iostream>
 
@@ -26,7 +25,7 @@ template <typename E> class TreeNode{
 
 template <typename E> TreeNode<E>::TreeNode(){
     left =  NULL;
-    right =  NULL; 
+    right =  NULL;
 }
 
 template <typename E> TreeNode<E>::TreeNode(E k){
@@ -40,7 +39,7 @@ template <typename E> TreeNode<E>::~TreeNode(){
 }
 
 
-// BST //
+// BST 
 
 template <typename E> class BST{
     private:
@@ -63,33 +62,27 @@ template <typename E> class BST{
         void inOrder(bool student, TreeNode<E> *node);
         void studentInOrder(TreeNode<E> *node);
         void facultyInOrder(TreeNode<E> *node);
-        
+
         void printTree();
         TreeNode<E>* getRoot();
         int length();
         bool isEmpty();
 };
 
-/*
-Constructor, sets root and size values.
-*/
+//Constructor, sets root and size values.
+
 template <typename E> BST<E>::BST(){
     root =  NULL;
 }
 
-/*
-Destructor
-*/
+//Destructor
+
 template <typename E> BST<E>::~BST(){
-    // destructor
+// destructor
 }
 
-/*
-contains
-Checks if tree contains node with key k.
-@param k: key to find.
-@return T/F
-*/
+//Checks if tree contains node with key k.
+
 template <typename E> bool BST<E>::contains(E k){
     E compare;
     if (root !=  NULL) {
@@ -104,7 +97,7 @@ template <typename E> bool BST<E>::contains(E k){
                 else {
                      current =  current->left;
                 }
-                
+
                 if (current ==  NULL) {
                     cout << "end of branch" << endl;
                     return false;
@@ -122,7 +115,7 @@ template <typename E> bool BST<E>::containsID(int k){
     E compare;
     if (root !=  NULL) {
             TreeNode<E> *current = root;
-            // cout << "printing k: " << k << endl;
+            // printing k
             while (current->key.getId() != k)
             {
                 //compare =  current->key;
@@ -132,16 +125,16 @@ template <typename E> bool BST<E>::containsID(int k){
                 else {
                      current =  current->right;
                 }
-                
+
                 if (current ==  NULL) {
-                    // cout << "end of branch" << endl;
+                    // print end of branch
                     return false;
                 }
             }
             return true;
         }
     else {
-        cout << "tree is empty" << endl;
+        // print tree is empty
         return false;
     }
 }
@@ -152,14 +145,14 @@ template <typename E> bool BST<E>::printStudentInfo(E v) {
             TreeNode<E> * current = root;
 
             while( current->key.getId() != v.getId()) {
-                
+
                 if (current->key.getId() >= v.getId()) {
                      current =  current->left;
                 }
                 else {
                      current =  current->right;
                 }
-                
+
                 if (current ==  NULL) {
                     cout << "Could not find." << endl;
                     return false;
@@ -192,7 +185,7 @@ template <typename E> bool BST<E>::printFacultyInfo(E v) {
                 else {
                      current =  current->right;
                 }
-                
+
                 if (current ==  NULL) {
                     // end of branch
                     cout << "Could not find." << endl;
@@ -224,14 +217,14 @@ template <typename E> E BST<E>::find(E k){
             else {
                     current =  current->left;
             }
-            
+
             if (compare ==  NULL) {
                 // end of branch
                 cout << "Could not find." << endl;
                 return false;
             }
         }
-        
+
         return true;
     }
     else {
@@ -239,11 +232,8 @@ template <typename E> E BST<E>::find(E k){
     }
 }
 
-/*
-insert
-Inserts node in tree.
-@param node: tree node to insert.
-*/
+//tree node to insert
+
 template <typename E> void BST<E>::insert(E v){
     TreeNode<E> *node = new TreeNode<E>(v);
     if (root != NULL)
@@ -259,7 +249,7 @@ template <typename E> void BST<E>::insert(E v){
                  current =  current->right;
                 if ( current !=  NULL) {
                     // continue
-                } 
+                }
                 else {
                     parent->right = node;
                     break;
@@ -270,7 +260,7 @@ template <typename E> void BST<E>::insert(E v){
                  current =  current->left;
                 if ( current !=  NULL) {
                     // continue
-                } 
+                }
                 else {
                     parent->left = node;
                     break;
@@ -285,12 +275,8 @@ template <typename E> void BST<E>::insert(E v){
 }
 
 
-/*
-delete
-Delete a node from tree.
-@param k: key to find and delete.
-@return T/F whether delete was successful.
-*/
+//elete a node from tree
+
 template <typename E> bool BST<E>::remove(int k){
     if (root ==  NULL){
         cout << "Nothing to delete." << endl;
@@ -308,7 +294,7 @@ template <typename E> bool BST<E>::remove(int k){
             if (current !=  NULL) {
                  if (k >=  current->key.getId()) {
                 isLeftNode = false;
-                isRightNode = true; 
+                isRightNode = true;
                  current =  current->right;
             }
                 else {
@@ -321,7 +307,7 @@ template <typename E> bool BST<E>::remove(int k){
             }
         }
 
-        
+
 
         if(current->right ==  NULL && current->left !=  NULL)
         {
@@ -339,7 +325,7 @@ template <typename E> bool BST<E>::remove(int k){
             else {
                 root = current->left;
             }
-            
+
         }
 
         else if(current->left ==  NULL && current->right !=  NULL)
@@ -376,7 +362,7 @@ template <typename E> bool BST<E>::remove(int k){
             else {
                 root =  NULL;
             }
-            
+
         }
 
         else {
@@ -404,12 +390,8 @@ template <typename E> bool BST<E>::remove(int k){
     }
 }
 
-/*
-getSuccessor
-Find a node's left most child of its right child
-@param d: Node to find successor for.
-@return successor node.
-*/
+// get successor
+
 template <typename E> TreeNode<E>* BST<E>::getSuccessor(TreeNode<E>* d){
     TreeNode<E> *sp = d;
     TreeNode<E> *current = d->right;
@@ -431,11 +413,8 @@ template <typename E> TreeNode<E>* BST<E>::getSuccessor(TreeNode<E>* d){
     return successor;
 }
 
-/*
-getMin
-Find a tree's smallest key node.
-@return smallest key node
-*/
+//Find a trees smallest key node.
+
 template <typename E> E BST<E>::getMin(){
     TreeNode<E> *current = root; //we start at the root
 
@@ -454,9 +433,7 @@ template <typename E> E BST<E>::getMin(){
 }
 
 
-/*
-getMax
-Find a tree's largest key node.
+//find a trees largest key node
 @return largest key node
 */
 template <typename E> E BST<E>::getMax(){
@@ -470,17 +447,14 @@ template <typename E> E BST<E>::getMax(){
         }
 
         return current->key;
-    } 
+    }
     else {
         return  NULL;
     }
 }
 
-/*
-inOrder
-Inorder traversal starting at some node.
-@param node: node to begin traversal
-*/
+//node to begin traversal
+
 template <typename E> void BST<E>::inOrder(bool student, TreeNode<E> *node){
     if (student) {
         if (node !=  NULL) {
@@ -505,14 +479,13 @@ template <typename E> void BST<E>::studentInOrder(TreeNode<E> *node) {
     if (node != NULL) {
         studentInOrder(node->left);
         cout << "______________________________" << endl;
-        //cout << endl;
+//cout << endl;
         cout << node->key.getName() << endl;
         cout << node->key.getId() << endl;
         cout << node->key.getMajor() << endl;
         cout << node->key.getAdvisor() << endl;
         cout << node->key.getLevel() << endl;
         cout << node->key.getGPA() << endl;
-        cout << "______________________________" << endl;
         studentInOrder(node->right);
     }
     else {
@@ -529,43 +502,33 @@ template <typename E> void BST<E>::facultyInOrder(TreeNode<E> *node) {
         cout << node->key.getId() << endl;
         cout << node->key.getLevel() << endl;
         cout << node->key.getDept() << endl;
-        cout << "______________________________" << endl;
         facultyInOrder(node->right);
 
-    } 
+    }
     else {
         return;
     }
 }
 
-/*
-printTree
-Caller for inOrder.
-*/
+//print tree Caller for in order.
+
 template <typename E> void BST<E>::printTree(){
-    // inOrder();
 }
 
-/*
-getRoot
-@return root: root of tree.
-*/
+// get root of tree.
+
 template <typename E> TreeNode<E>* BST<E>::getRoot(){
     TreeNode<E> *node = this->root;
     return node;
 }
 
-/*
-length
-@return size: size of tree.
-*/
+//length size of tree.
+
 template <typename E> int BST<E>::length(){
 }
 
-/*
-isEmpty
-@return T/F: if size is 0 or not.
-*/
+//is empty if size is 0 or not.
+
 template <typename E> bool BST<E>::isEmpty(){
     if(root != NULL)
     {

@@ -17,11 +17,11 @@ Student::Student(){
 }
 
 // overloaded constructor
-Student::Student(int ID, string name, string level, string major, double GPA, int advisor){
+Student::Student(int ID, string NAME, string lvl, string mjr, double GPA, int advisor){
     stID = ID;
-    name = name;
-    level = level;
-    major = major;
+    name = NAME;
+    level = lvl;
+    major = mjr;
     gpa = GPA;
     advisorID = advisor;
 }
@@ -30,8 +30,10 @@ Student::~Student(){
     // delete ?
 }
 
-void Student::setName(string name){
-    name = name;
+void Student::setName(string NAME){
+    name = NAME;
+    // cout << name << "inside setter" << endl;
+    
 }
 
 string Student::getName(){
@@ -46,24 +48,24 @@ int Student::getId(){
     return stID;
 }
 
-void Student::setLevel(string level){
-    level = level;
+void Student::setLevel(string lvl){
+    level = lvl;
 }
 
 string Student::getLevel(){
     return level;
 }
 
-void Student::setMajor(string major){
-    major = major;
+void Student::setMajor(string mjr){
+    major = mjr;
 }
 
 string Student::getMajor(){
     return major;
 }
 
-void Student::setGPA(double gpa){
-    gpa = gpa;
+void Student::setGPA(double GPA){
+    gpa = GPA;
 }
 
 double Student::getGPA(){

@@ -2,7 +2,9 @@
 #define FACULTY_H
 #include <iostream>
 #include <stdio.h>
+#include "List.h"
 #include <string>
+
 
 //#include "LinkedList.h"
 
@@ -12,23 +14,25 @@ using namespace std;
 class Faculty {
     public:
         Faculty();
-        Faculty(int ID, string name, string level, string dept); // overloaded constructor
+        Faculty(int ID, string n, string l, string dept); // overloaded constructor
         ~Faculty();
 
-        void setName(string name);
+        void setName(string n);
         string getName();
 
         void setID(int ID);
         int getId();
 
-        void setLevel(string level);
+        void setLevel(string l);
         string getLevel();
 
-        void setDept(string dept);
+        void setDept(string d);
         string getDept();
 
-        //DoublyLinkedList<int> getAdviseeList();
-
+        List<int> *advisees = new List<int>(); // for advisees
+        void addAdvisee(int studentID);
+        bool removeAdvisee(int studentId);
+        void getAdvisees(string adv);
 
         // overloaded constructors
         // overloaded operators here
@@ -44,6 +48,7 @@ class Faculty {
         string name;
         string level;
         string department;
+
 };
 
 #endif
